@@ -8,4 +8,4 @@
 #A Typed test where the user is asked a question and types in the correct answer
 #A Multiple choice test where the user is given a question and 4 possible answers. The user must select the correct answer.
 #A Matching question, Where all 21 questions are displayer on the left, and all 21 answers and displayed on the right. The User must
-#match the questions on the left to the correct answers on the right.
+match the questions on the left to the correct answers on the right.
