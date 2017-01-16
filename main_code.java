@@ -9,7 +9,7 @@ import java.util.*;
 
 public class main_code extends JFrame
 {
-    //Build UI for menus
+    
     protected JFrame main_frame=this;
     
     protected double[] high_scores=new double[3];
@@ -24,7 +24,7 @@ public class main_code extends JFrame
     protected JLabel question=new JLabel("Temp", SwingConstants.CENTER);
     
     
-    //For Main Menu UI
+    //For Menu
     
     protected Font main_menu_font=new Font("Sanserif", Font.BOLD, 20);
     protected Font math_font=new Font("Serif", Font.BOLD, 30);
@@ -52,7 +52,7 @@ public class main_code extends JFrame
     protected JLabel matching_high_score=new JLabel("0.0%", SwingConstants.CENTER);
     
     
-    //For typed test UI
+    //For typed test
     
     protected JPanel typed_main_panel=new JPanel(new GridLayout(0,1));
     protected JPanel typed_bottom_panel=new JPanel(new BorderLayout());
@@ -61,7 +61,7 @@ public class main_code extends JFrame
     protected JButton submit_typed=new JButton("Submit");
     
     
-    //For Multiple Choice UI
+    //For Multiple Choice 
     
     protected JPanel m_choice_main_panel=new JPanel(new GridLayout(0,1));
     protected JPanel m_choices_panel=new JPanel(new GridLayout(0,2));
@@ -75,7 +75,7 @@ public class main_code extends JFrame
     protected int correct_ans;
     
     
-    //For Matching UI
+    //For Matching
     
     protected ArrayList<Matchable_JButton> questions_for_match=new ArrayList<Matchable_JButton>();
     protected ArrayList<Matchable_JButton> ans_for_match=new ArrayList<Matchable_JButton>();
@@ -95,7 +95,6 @@ public class main_code extends JFrame
     public main_code()
     {
         
-        //Initial setup for matching Quiz
         int c=0;
         
         for (int i=6; i<12; i++){
@@ -106,6 +105,7 @@ public class main_code extends JFrame
                 temp_array[1]=""+(i*ii);
                 
                 all_questions.add(temp_array);
+                
                 
                 Matchable_JButton temp_q_button=new Matchable_JButton(true, i+"x"+ii);
                 questions_for_match.add(temp_q_button);
@@ -127,7 +127,7 @@ public class main_code extends JFrame
         top_text_panel.add(question);
         
         
-        //Initializing various Menu UI
+        //Initializing Menu Part
         
         add(menu_main_panel);
         
@@ -156,7 +156,7 @@ public class main_code extends JFrame
         menu_text.setFont(main_menu_font);
         
         
-        //Anonymous Listener to start the Multiple Choice quiz
+        //To open the Multiple Choice quiz
         m_choice_test_button.addActionListener(new ActionListener(){
             
             public void actionPerformed(ActionEvent event){
@@ -169,7 +169,7 @@ public class main_code extends JFrame
         }
         );
         
-        //Anonymous Listener to start the Matching quiz
+        //To open the Matching quiz
         matching_test_button.addActionListener(new ActionListener(){
             
             public void actionPerformed(ActionEvent event){
@@ -180,7 +180,7 @@ public class main_code extends JFrame
         }
         );
         
-        //Anonymous Listener to start the Typed quiz
+        //To open the Typed quiz
         typed_test_button.addActionListener(new ActionListener(){
             
             public void actionPerformed(ActionEvent event){
@@ -194,7 +194,8 @@ public class main_code extends JFrame
         );
         
         
-        //Initializing Typed quiz answer field
+        //Initializing Typed test part
+        
         typed_bottom_panel.add(ans_field, BorderLayout.CENTER);
         typed_bottom_panel.add(submit_typed, BorderLayout.EAST);
         
@@ -230,7 +231,8 @@ public class main_code extends JFrame
         );
         
         
-        //Initializing Multiple Choice option buttons
+        //Initializing Multiple Choice Part
+        
         m_choices_panel.add(choice_a);
         m_choices_panel.add(choice_b);
         m_choices_panel.add(choice_c);
@@ -242,14 +244,15 @@ public class main_code extends JFrame
         choice_d.addActionListener(m_choice_click_listener);
         
         
-        //Initializing Matching quiz panels
+        //Initializing Matching Choice Part
+        
         match_main_panel.add(match_q_panel, BorderLayout.WEST);
         match_main_panel.add(match_a_panel, BorderLayout.EAST);
         match_main_panel.add(match_center_panel, BorderLayout.CENTER);
         
         match_main_panel.add(submit_matches, BorderLayout.SOUTH);
         
-        //Creates the anonymous listener for when the user submits the Matching quiz
+        //Creates the listener for when the user submits the Matching quiz
         submit_matches.addActionListener(new ActionListener(){
         
             public void actionPerformed(ActionEvent event){
@@ -257,12 +260,12 @@ public class main_code extends JFrame
                 if (((JButton)event.getSource()).getText()=="Submit"){
                     boolean all_matched=true;
                         
-                    //Check to see if the user tries to submit without matching all questions
                     for (int i=0; i<21; i++){
                         if (questions_for_match.get(i).matched_with==null){
                             all_matched=false;
                         }
                     }
+                        
                     if (all_matched==false){
                         int confirm_exit=JOptionPane.showConfirmDialog(main_frame, "Are you sure?");
                         if (confirm_exit==JOptionPane.NO_OPTION || confirm_exit==JOptionPane.CANCEL_OPTION || confirm_exit==-1){
@@ -272,7 +275,6 @@ public class main_code extends JFrame
                     
                     ((JButton)event.getSource()).setText("Continue");
                     
-                    //Show which answers were correct/incorrect
                     for (int i=0; i<21; i++){
                         
                         if (questions_for_match.get(i).matched_with==questions_for_match.get(i).correct_match){
@@ -298,7 +300,6 @@ public class main_code extends JFrame
                     match_center_panel.repaint();
                 }
                 
-                //Calculates high-score related info and handles what the user wants to do after compleating the quiz
                 else if (((JButton)event.getSource()).getText()=="Continue"){
                     double final_score=(double)(score*1000/21)/10.0;
                     String congrats_text="";
@@ -373,7 +374,6 @@ public class main_code extends JFrame
         
         score_label.setText("Score: "+score+"/"+total_questions);
         
-        //If this is the last question. Handles high-score related info and what the user wants to do after compleating the quiz
         if (question_index==total_questions){
             double final_score=(double)(score*1000/21)/10.0;
             String congrats_text="";
@@ -439,7 +439,7 @@ public class main_code extends JFrame
         
         score_label.setText("Score: "+score+"/"+total_questions);
         
-        //If the quiz is over. Handles high-score related info and what the user wants to do after compleating the quiz
+        //For if the quiz is over
         if (question_index==total_questions){
             double final_score=(double)(score*1000/21)/10.0;
                     
@@ -473,7 +473,6 @@ public class main_code extends JFrame
             return;
         }
         
-        //Sets up for next question
         choice_a.setBackground(null);
         choice_b.setBackground(null);
         choice_c.setBackground(null);
@@ -608,7 +607,7 @@ public class main_code extends JFrame
     
     
     public void endMatching(){
-        //Used when the user leaves the Matching Quiz
+        //Used when the user clicks to submit the Matching Quiz
         
         match_q_panel.removeAll();
         match_a_panel.removeAll();
@@ -718,4 +717,4 @@ public class main_code extends JFrame
             return;
         }
     }
-}
+}//end main_code
