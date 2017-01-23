@@ -93,7 +93,7 @@ public class main_code extends JFrame
     
     
     
-    public static void main()
+    public static void main(String args[])
     {
         new main_code();
     }
