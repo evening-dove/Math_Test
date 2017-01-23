@@ -92,6 +92,13 @@ public class main_code extends JFrame
     protected JButton submit_matches=new JButton("Submit");
     
     
+    
+    public static void main()
+    {
+        new main_code();
+    }
+    
+    
     public main_code()
     {
         
